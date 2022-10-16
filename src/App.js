@@ -1,43 +1,57 @@
-import './App.css';
-import { Component } from 'react';
-import { Header } from './components/Header';
-import { Movies } from './components/Movies';
-import { Read } from './components/Read';
-import { Contents } from './components/Contents';
-import { Navbar, Nav } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { Create } from './components/Create';
+import logo from './logo.svg';
 
-class App extends Component {
+//importing react so we can change it from a class from a function
+import React from 'react';
+
+//importing css bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+//importing all the info from the class content
+import { Content } from './components/content'
+
+//importing all the revelent info for Nav Bar
+import Navbar from 'react-bootstrap/NavBar'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav'
+
+import { Read } from './components/read';
+import { Create } from './components/create';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
+
+//changed from fucntion to class
+class App extends React.Component {
+  //must included this method called render
   render() {
     return (
-      //Router and NavBar bootstrap tags. Gives us a Navigation Bar and clickable buttons to navigate the website
-      //Switch tag used to retrive the path and go to the page and show its components
       <Router>
         <div className="App">
-          <Navbar bg="primary" variant="dark">
+
+          <Navbar bg="dark" variant="dark">
             <Container>
-              <Navbar.Brand href="#home"></Navbar.Brand>
-              <Nav className="navBar">
-                <Nav.Link href="/Home">Home</Nav.Link>
-                <Nav.Link href="/Read">Read</Nav.Link>
-                <Nav.Link href="/Create">Create</Nav.Link>
+              <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/read">Read</Nav.Link>
+                <Nav.Link href="/create">Create</Nav.Link>
               </Nav>
             </Container>
           </Navbar>
+          <Routes>
+            <Route path='/' element={<Content></Content>}></Route>
+            <Route path='/read' element={<Read></Read>}></Route>
+            <Route path='/create' element={<Create></Create>}></Route>
+          </Routes>
 
-          <Switch>
-            <Route path='/Home' exact component={Contents}></Route>
-            <Route path='/Create' exact component={Create}></Route>
-            <Route path='/Read' exact component={Read}></Route>
-          </Switch>
 
         </div>
       </Router>
     );
   }
 }
-
 export default App;
